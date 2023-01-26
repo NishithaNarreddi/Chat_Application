@@ -9,7 +9,12 @@ const router = require('./router');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const io = socketio(server, {
+  cors:{
+    origin: "http://localhost:3001",
+    methods: ['GET', 'POST']
+  }
+});
 
 app.use(cors());
 app.use(router);
@@ -48,4 +53,4 @@ io.on('connect', (socket) => {
   })
 });
 
-server.listen(process.env.PORT || 5000, () => console.log(`Server has started.`));
+server.listen(process.env.PORT || 3000, () => console.log(`Server has started.`));
